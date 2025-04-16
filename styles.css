@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@300&display=swap');
+
+* {
+    margin: None;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.content {
+    height: auto; 
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    overflow: visible; 
+    margin-top: 20px;
+}
+
+body {
+    font-family: 'Karla', sans-serif;
+    font-weight: 300;
+    font-size: 1.4rem;
+}
+
+img {
+    max-width: 100%;
+    max-height: 80vh; 
+    margin-top: 20px;
+    display: block;
+    object-fit: contain; 
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.text-container {
+    width: 100%;  
+    max-width: 700px; 
+    margin: 8px auto;
+    text-align: left;
+}
+
+.title-container {
+    width: 100%;  
+    max-width: 600px; 
+    margin: 10px auto;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.scroll-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: black;
+    animation: floatArrow 1.5s infinite ease-in-out;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.scroll-btn:hover {
+    transform: translateX(-50%) scale(1.2);
+}
+
+@keyframes floatArrow {
+    0% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-5px); }
+    100% { transform: translateX(-50%) translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .text-container {
+        width: 90%;
+        max-width: 100%;
+    }
+}
+
+.paragraph {
+    overflow-wrap: break-word;
+    font-size: 1.2rem; 
+    line-height: 1.6; 
+    margin: 5px auto;
+    width: 100%;  
+    max-width: 700px; 
+}
+
+.question {
+    overflow-wrap: break-word;
+    font-size: 1.2rem; 
+    line-height: 1.6; 
+    margin: 5px auto;
+    font-style: italic;
+    margin: 5px;
+}
+
+
+.question {
+    margin: 5px auto; 
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    z-index: 1000;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+
+.dropbtn {
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    width: 350px;
+    font-family: 'Karla', sans-serif;
+    font-size: 20px;
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    z-index: 9999;
+    background-color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 9999;
+    background-color: white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    min-width: 150px;
+    width: 350px;
+    z-index: 100;
+    text-align: center;
+    font-family: 'Karla', sans-serif;
+    font-size: 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    z-index: 9999;
+    background-color: white;
+}
+
+.dropdown-content a {
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    font-family: 'Karla', sans-serif;
+    font-size: 20px;
+    z-index: 9999;
+    background-color: white;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+    z-index: 9999;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 9999;
+}
+
+.avon-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Karla', sans-serif; 
+    color: black;
+    border: 1px solid black;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.avon-button:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+}
+
+
