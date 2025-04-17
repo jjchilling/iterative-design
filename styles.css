@@ -278,3 +278,20 @@ image-container {
 .carousel-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+.link-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Karla', sans-serif; 
+    color: black;
+    border: 1px solid black;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.link-button:hover {
+    background-color: rgba(0, 0, 0, 0.1); 
+}
