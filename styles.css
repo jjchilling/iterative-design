@@ -189,8 +189,8 @@ h4 {
 }
 
 image-container {
-    width: 90%; 
-    margin: auto; 
+  width: 90%;
+  margin: auto;
 }
 
 .dropdown-content a:hover {
@@ -203,75 +203,78 @@ image-container {
   z-index: 9999;
 }
 
-
-
 .carousel-container {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
-    overflow: hidden;
-    padding-bottom: 0; 
-     z-index: 0;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  padding-bottom: 0;
+  z-index: 0;
 }
 
-
 .carousel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 750px;
 }
 
 .carousel-image {
-    position: absolute;
-    width: 60%;
-    height: auto;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    filter: brightness(50%);
-    opacity: 0.6;
-    transform: scale(0.8);
-    z-index: 1;
+  position: absolute;
+  width: 60%;
+  height: auto;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  filter: brightness(50%);
+  opacity: 0.6;
+  transform: scale(0.8);
+  z-index: 1;
 }
 
 .carousel-image.active {
-    filter: brightness(100%);
-    opacity: 1;
-    transform: scale(1);
-    z-index: 3;
+  filter: brightness(100%);
+  opacity: 1;
+  transform: scale(1);
+  z-index: 3;
 }
 
 .carousel-image.prev {
-    transform: translateX(-45%) scale(0.9);
-    opacity: 0.5;
-    z-index: 2;
+  transform: translateX(-45%) scale(0.9);
+  opacity: 0.5;
+  z-index: 2;
 }
 
 .carousel-image.next {
-    transform: translateX(45%) scale(0.9);
-    opacity: 0.5;
-    z-index: 2;
+  transform: translateX(45%) scale(0.9);
+  opacity: 0.5;
+  z-index: 2;
+}
+.carousel-image.out {
+  display: none;
 }
 
 .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 12px;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 9999;
-    pointer-events: auto; 
-   
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 12px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 9999;
+  pointer-events: auto;
 }
 
-.carousel-btn.left { left: 10px; }
+.carousel-btn.left {
+  left: 10px;
+}
 
-.carousel-btn.right { right: 10px; }
+.carousel-btn.right {
+  right: 10px;
+}
 
 .carousel-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }

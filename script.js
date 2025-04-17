@@ -43,41 +43,58 @@ document.addEventListener("DOMContentLoaded", () => {
   // observeLazyImages();
 
   // === Carousel Setup ===
-  let currentIndex = 0;
-  const images = document.querySelectorAll(".carousel-image");
-  const totalImages = images.length;
+  class Carousel {
+    currentIndex;
+    images;
+    totalImages;
+    container;
 
-  function updateCarousel() {
-    images.forEach((img, index) => {
-      img.classList.remove("active", "prev", "next");
-      if (index === currentIndex) {
-        img.classList.add("active");
-      } else if (index === (currentIndex - 1 + totalImages) % totalImages) {
-        img.classList.add("prev");
-      } else if (index === (currentIndex + 1) % totalImages) {
-        img.classList.add("next");
+    constructor(container) {
+      this.container = container;
+      this.currentIndex = 0;
+      this.images = container.querySelectorAll(".carousel-image");
+      this.totalImages = this.images.length;
+
+      const leftBtn = container.querySelector(".carousel-btn.left");
+      const rightBtn = container.querySelector(".carousel-btn.right");
+
+      if (leftBtn && rightBtn) {
+        leftBtn.addEventListener("click", () => this.prevSlide());
+        rightBtn.addEventListener("click", () => this.nextSlide());
+        this.updateCarousel();
+      } else {
+        console.warn("🚨 Carousel buttons not found in DOM for one container.");
       }
-    });
-  }
+    }
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalImages;
-    updateCarousel();
-  }
+    updateCarousel() {
+      this.images.forEach((img, index) => {
+        img.classList.remove("active", "prev", "next", "out");
+        if (index === this.currentIndex) {
+          img.classList.add("active");
+        } else if (
+          index ===
+          (this.currentIndex - 1 + this.totalImages) % this.totalImages
+        ) {
+          img.classList.add("prev");
+        } else if (index === (this.currentIndex + 1) % this.totalImages) {
+          img.classList.add("next");
+        } else {
+          img.classList.add("out");
+        }
+      });
+    }
 
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-    updateCarousel();
-  }
+    nextSlide() {
+      this.currentIndex = (this.currentIndex + 1) % this.totalImages;
+      this.updateCarousel();
+    }
 
-  const leftBtn = document.querySelector(".carousel-btn.left");
-  const rightBtn = document.querySelector(".carousel-btn.right");
-  if (leftBtn && rightBtn) {
-    leftBtn.addEventListener("click", prevSlide);
-    rightBtn.addEventListener("click", nextSlide);
-    updateCarousel();
-  } else {
-    console.warn("🚨 Carousel buttons not found in DOM.");
+    prevSlide() {
+      this.currentIndex =
+        (this.currentIndex - 1 + this.totalImages) % this.totalImages;
+      this.updateCarousel();
+    }
   }
 
   // === Inject Navigation and Attach Dropdown Events ===
@@ -88,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((html) => {
       document.getElementById("navbar").innerHTML = html;
-
 
       const dropBtn = document.querySelector(".dropbtn");
       const dropdown = document.querySelector(".dropdown");
@@ -107,4 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
     .catch((err) => console.error("❌ Error loading navbar:", err));
+
+  document.querySelectorAll(".carousel-container").forEach((container) => {
+    new Carousel(container);
+  });
 });
