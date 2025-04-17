@@ -48,20 +48,12 @@ h4 {
   margin: 10px 0;
 }
 
-img.lazy-img {
-  max-width: 100%;
-  max-height: 80vh;
-  margin: 20px 0;
-  display: block;
-  object-fit: contain;
+.lazy-img {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition: opacity 0.5s ease-out;
 }
-
-img.lazy-img.loaded {
+.lazy-img.loaded {
   opacity: 1;
-  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
@@ -197,6 +189,11 @@ img.lazy-img.loaded {
   background-color: white;
 }
 
+image-container {
+    width: 90%; 
+    margin: auto; 
+}
+
 .dropdown-content a:hover {
   background-color: #ddd;
   z-index: 9999;
@@ -207,19 +204,75 @@ img.lazy-img.loaded {
   z-index: 9999;
 }
 
-.avon-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  font-family: "Karla", sans-serif;
-  color: black;
-  border: 1px solid black;
-  background: transparent;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s ease;
-  border-radius: 10px;
+
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    overflow: hidden;
+    padding-bottom: 0; 
+     z-index: 0;
 }
 
-.avon-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 750px;
+}
+
+.carousel-image {
+    position: absolute;
+    width: 60%;
+    height: auto;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    filter: brightness(50%);
+    opacity: 0.6;
+    transform: scale(0.8);
+    z-index: 1;
+}
+
+.carousel-image.active {
+    filter: brightness(100%);
+    opacity: 1;
+    transform: scale(1);
+    z-index: 3;
+}
+
+.carousel-image.prev {
+    transform: translateX(-45%) scale(0.9);
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.carousel-image.next {
+    transform: translateX(45%) scale(0.9);
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 12px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 9999;
+    pointer-events: auto; 
+   
+}
+
+.carousel-btn.left { left: 10px; }
+
+.carousel-btn.right { right: 10px; }
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }

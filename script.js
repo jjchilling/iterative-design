@@ -1,117 +1,110 @@
-const scrollButtons = document.querySelectorAll(".scroll-btn");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ DOM is ready");
 
-scrollButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const currentSection = btn.parentElement;
-    const nextSection = currentSection.nextElementSibling;
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
+  // === Fade-in Animation ===
+  const fadeElements = document.querySelectorAll(".fade-in");
+  const fadeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  fadeElements.forEach((el) => fadeObserver.observe(el));
 
-const fadeElements = document.querySelectorAll(".fade-in");
+  // === Lazy Loading ===
+  function observeLazyImages(selector = ".lazy-img") {
+    const lazyObserver = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          const img = entry.target;
+          if (entry.isIntersecting) {
+            if (!img.src) {
+              img.src = img.dataset.src;
+              img.onload = () => img.classList.add("loaded");
+            } else {
+              img.classList.add("loaded");
+            }
+            obs.unobserve(img);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+    document
+      .querySelectorAll(selector)
+      .forEach((img) => lazyObserver.observe(img));
+  }
+
+  observeLazyImages();
+
+  // === Carousel Setup ===
+  let currentIndex = 0;
+  const images = document.querySelectorAll(".carousel-image");
+  const totalImages = images.length;
+
+  function updateCarousel() {
+    images.forEach((img, index) => {
+      img.classList.remove("active", "prev", "next");
+      if (index === currentIndex) {
+        img.classList.add("active");
+      } else if (index === (currentIndex - 1 + totalImages) % totalImages) {
+        img.classList.add("prev");
+      } else if (index === (currentIndex + 1) % totalImages) {
+        img.classList.add("next");
       }
     });
-  },
-  { threshold: 0.2 }
-);
+  }
 
-fadeElements.forEach((element) => observer.observe(element));
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalImages;
+    updateCarousel();
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+    updateCarousel();
+  }
+
+  const leftBtn = document.querySelector(".carousel-btn.left");
+  const rightBtn = document.querySelector(".carousel-btn.right");
+  if (leftBtn && rightBtn) {
+    leftBtn.addEventListener("click", prevSlide);
+    rightBtn.addEventListener("click", nextSlide);
+    updateCarousel();
+  } else {
+    console.warn("🚨 Carousel buttons not found in DOM.");
+  }
+
+  // === Inject Navigation and Attach Dropdown Events ===
   fetch("navigation.html")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      return res.text();
+    })
+    .then((html) => {
+      document.getElementById("navbar").innerHTML = html;
+
+
+      const dropBtn = document.querySelector(".dropbtn");
+      const dropdown = document.querySelector(".dropdown");
+      const dropdownContent = document.querySelector(".dropdown-content");
+
+      if (dropBtn && dropdownContent) {
+        dropBtn.addEventListener("click", () => {
+          dropdownContent.classList.toggle("show");
+        });
+
+        window.addEventListener("click", (e) => {
+          if (!dropdown.contains(e.target)) {
+            dropdownContent.classList.remove("show");
+          }
+        });
       }
-      return response.text();
     })
-    .then((data) => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch((error) => console.error("Error loading the navigation:", error));
+    .catch((err) => console.error("❌ Error loading navbar:", err));
 });
-
-
-document.querySelector(".dropbtn").addEventListener("click", function () {
-  document.querySelector(".dropdown").classList.toggle("active");
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const dropdown = document.querySelector(".dropdown");
-
-  dropdown.addEventListener("click", function () {
-    this.querySelector(".dropdown-content").classList.toggle("show");
-  });
-
-  window.addEventListener("click", function (event) {
-    if (!dropdown.contains(event.target)) {
-      document.querySelector(".dropdown-content").classList.remove("show");
-    }
-  });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("tables.html")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then((data) => {
-      let tempDiv = document.createElement("div");
-      tempDiv.innerHTML = data;
-
-      let table1 = tempDiv.querySelector("#input");
-      let table2 = tempDiv.querySelector("#output");
-
-      if (table1)
-        document.getElementById("input").appendChild(table1);
-      if (table2)
-        document.getElementById("output").appendChild(table2);
-    })
-    .catch((error) => console.error("Error loading the tables:", error));
-});
-
-let slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides((slideIndex += n));
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides((slideIndex = n));
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("demo");
-  let captionText = document.getElementById("caption");
-  if (n > slides.length) {
-    slideIndex = 1;
-  }
-  if (n < 1) {
-    slideIndex = slides.length;
-  }
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-  captionText.innerHTML = dots[slideIndex - 1].alt;
-}
