@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     })
-    .catch((err) => console.error("❌ Error loading navbar:", err));
+    .catch((err) => console.error("Error loading navbar:", err));
 
   document.querySelectorAll(".carousel-container").forEach((container) => {
     new Carousel(container);
