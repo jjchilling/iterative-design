@@ -16,31 +16,31 @@ document.addEventListener("DOMContentLoaded", () => {
   fadeElements.forEach((el) => fadeObserver.observe(el));
 
   // === Lazy Loading ===
-  function observeLazyImages(selector = ".lazy-img") {
-    const lazyObserver = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          const img = entry.target;
-          if (entry.isIntersecting) {
-            if (!img.src) {
-              img.src = img.dataset.src;
-              img.onload = () => img.classList.add("loaded");
-            } else {
-              img.classList.add("loaded");
-            }
-            obs.unobserve(img);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  // function observeLazyImages(selector = ".lazy-img") {
+  //   const lazyObserver = new IntersectionObserver(
+  //     (entries, obs) => {
+  //       entries.forEach((entry) => {
+  //         const img = entry.target;
+  //         if (entry.isIntersecting) {
+  //           if (!img.src) {
+  //             img.src = img.dataset.src;
+  //             img.onload = () => img.classList.add("loaded");
+  //           } else {
+  //             img.classList.add("loaded");
+  //           }
+  //           obs.unobserve(img);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.1 }
+  //   );
 
-    document
-      .querySelectorAll(selector)
-      .forEach((img) => lazyObserver.observe(img));
-  }
+  //   document
+  //     .querySelectorAll(selector)
+  //     .forEach((img) => lazyObserver.observe(img));
+  // }
 
-  observeLazyImages();
+  // observeLazyImages();
 
   // === Carousel Setup ===
   let currentIndex = 0;

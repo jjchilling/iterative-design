@@ -24,7 +24,6 @@ section {
 
 .content {
   width: 100%;
-  max-width: 1000px;
   padding: 20px;
   display: flex;
   flex-direction: column;
